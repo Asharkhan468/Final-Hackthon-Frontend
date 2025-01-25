@@ -6,7 +6,7 @@ const Home = () => {
 
   const allBlogs = async () => {
     try {
-      const response = await axios.get("https://final-hackthon-backend-teal.vercel.app/UserPost/post");
+      const response = await axios.get("https://final-hackthon-backend-teal.vercel.app/api/userPost/post");
       console.log(response.data.data);
       setBlogs(response.data.data);
     } catch (error) {
