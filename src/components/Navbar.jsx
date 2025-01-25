@@ -38,7 +38,7 @@ const Navbar = () => {
     <div className="navbar px-6 bg-gradient-to-r from-blue-500 to-teal-400 shadow-xl rounded-b-2xl">
     <div className="flex-1">
       <a className="text-2xl font-bold text-white hover:text-gray-200 transition-all duration-300 ease-in-out transform hover:scale-105">
-        My App
+        Saylani MicroFinance
       </a>
     </div>
   
