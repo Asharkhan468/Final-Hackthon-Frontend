@@ -8,7 +8,7 @@ const Home = () => {
     try {
       const token = localStorage.getItem("token"); // Token ko yahan se uthain
       const response = await axios.get(
-        "https://final-hackthon-backend-teal.vercel.app/api/UserPost/post",
+        "https://final-hackthon-frontend.vercel.app/api/UserPost/post",
         {
           headers: {
             Authorization: `Bearer ${token}`, // Authorization header add karein

@@ -6,7 +6,7 @@ const Logout = () => {
 
   const logout = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/users/logout");
+      const response = await axios.post("https://final-hackthon-frontend.vercel.app/api/users/logout");
       console.log(response);
 
       

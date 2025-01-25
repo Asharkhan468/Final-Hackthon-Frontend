@@ -20,7 +20,7 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://final-hackthon-backend-teal.vercel.app/api/user/login",
+        "https://final-hackthon-frontend.vercel.app/api/user/login",
         data,
         { withCredentials: true }
       );
