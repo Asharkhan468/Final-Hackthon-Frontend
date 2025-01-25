@@ -9,6 +9,8 @@ const Home = () => {
       const response = await axios.get("https://final-hackthon-backend-teal.vercel.app/api/userPost/post");
       console.log(response.data.data);
       setBlogs(response.data.data);
+      console.log(blogs , "db waly blogs ye hen ");
+      
     } catch (error) {
       console.error(error);
       setBlogs([]);
