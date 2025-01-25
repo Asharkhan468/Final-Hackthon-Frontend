@@ -160,7 +160,7 @@ const RegisterForm = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('/api/register', formData);
+      const response = await axios.post('http://localhost:3000/api/auth/register', formData);
       setSuccess(response.data.message);
       setFormData({ name: '', email: '', cnic: '', role: 'user' });
     } catch (err) {
