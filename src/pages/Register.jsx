@@ -129,8 +129,6 @@
 
 
 
-
-
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -160,7 +158,7 @@ const RegisterForm = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('https://final-hackthon-backend-teal.vercel.app/api/auth/register', formData);
+      const response = await axios.post('/api/register', formData);
       setSuccess(response.data.message);
       setFormData({ name: '', email: '', cnic: '', role: 'user' });
     } catch (err) {
@@ -171,9 +169,9 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
-        <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">Register</h2>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-600 to-blue-400">
+      <div className="bg-white p-8 rounded-lg shadow-xl w-full sm:w-96 transform transition-all duration-300 hover:scale-105">
+        <h2 className="text-4xl font-semibold text-center text-gray-800 mb-6">Register</h2>
 
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
         {success && <div className="text-green-500 text-center mb-4">{success}</div>}
@@ -188,7 +186,7 @@ const RegisterForm = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out transform"
             />
           </div>
 
@@ -201,7 +199,7 @@ const RegisterForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out transform"
             />
           </div>
 
@@ -214,7 +212,7 @@ const RegisterForm = () => {
               value={formData.cnic}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out transform"
             />
           </div>
 
@@ -225,7 +223,7 @@ const RegisterForm = () => {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out transform"
             >
               <option value="user">User</option>
               <option value="admin">Admin</option>
@@ -235,7 +233,7 @@ const RegisterForm = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full px-4 py-2 text-white bg-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${loading && 'opacity-50'}`}
+            className={`w-full px-4 py-3 text-white bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out transform ${loading && 'opacity-50'}`}
           >
             {loading ? 'Registering...' : 'Register'}
           </button>
@@ -246,12 +244,3 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
-
-
-
-
-
-
-
-
-
