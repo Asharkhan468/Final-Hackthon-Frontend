@@ -162,7 +162,7 @@ const RegisterForm = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('https://final-hackthon-backend-teal.vercel.app/api/register', formData);
+      const response = await axios.post('https://final-hackthon-backend-teal.vercel.app/api/auth/register', formData);
       setSuccess(response.data.message);
       console.log('User Data:', formData);
       setFormData({ name: '', email: '', cnic: '', role: 'user' });
