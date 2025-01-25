@@ -6,7 +6,7 @@ const Home = () => {
 
   const allBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/blogs/allBlogs");
+      const response = await axios.get("https://final-hackthon-backend-teal.vercel.app/UserPost/post");
       console.log(response.data.data);
       setBlogs(response.data.data);
     } catch (error) {
@@ -50,7 +50,7 @@ const Home = () => {
                       paddingRight: '5px',
                     }}
                   >
-                    {blog.description}
+                    {blog.content}
                   </div>
                 </div>
               </div>

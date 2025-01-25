@@ -1,232 +1,127 @@
-// import axios from "axios";
-// import {useForm} from "react-hook-form";
-// import {useNavigate} from "react-router-dom"
-
-
-// const Register = () => {
-
-//   const navigate = useNavigate()
-
-  
-//     const {
-//         register,
-//         handleSubmit,
-//         formState: { errors },
-//       } = useForm()
-  
-//     const submissions = async (data) => {
-    
-//         // Create FormData object
-//         const formData = new FormData();
-//         formData.append("username", data.name);
-//         formData.append("email", data.email);
-//         formData.append("password",  data.password);
-       
-
-//         try {
-//           const response = await axios.post(
-//             "https://final-hackthon-backend-teal.vercel.app/api/user/register",
-//             formData,
-//             {
-//               headers: {
-//                 "Content-Type": "multipart/form-data",
-//               },
-//             }
-//           );
-          
-//           console.log("User registered successfully:", response.data);
-//           const userId = response.data.data._id;  
-//           localStorage.setItem("userId",userId)
-        
-//           console.log("User id:", response.data.data._id);
-         
-//           navigate("/login")
-//         } catch (error) {
-//           console.error("Error registering user:", error.response?.data || error.message);
-//         }
-//       };
-
-
-
-    
-//   return (
-//     <>
-//     <div className="flex justify-center mt-5 p-5">
-//       <form
-//         style={{ boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px" }}
-//         className="p-8 w-full max-w-md bg-white rounded-lg"
-//         onSubmit={handleSubmit(submissions)}
-//       >
-//         <h1 className="text-lg font-bold p-2 mb-5">Register</h1>
-//         <input
-//           className="input input-bordered w-full mb-3"
-//           {...register("name", { required: "Name is required" })}
-//           type="text"
-//           placeholder="Username"
-//         />
-//         {errors.name && <p className="text-red-500 mb-2 text-start mx-1">{errors.name.message}</p>}
-
-//         <input
-//           className="input input-bordered w-full mb-3"
-//           {...register("email", { required: "Email is required" })}
-//           type="email"
-//           placeholder="Email"
-//         />
-//         {errors.email && <p className="text-red-500 mb-2 text-start mx-1">{errors.email.message}</p>}
-
-//         <input
-//           className="input input-bordered w-full mb-3"
-//           {...register("password", { required: "Password is required" })}
-//           type="password"
-//           placeholder="Password"
-//         />
-//         {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.password.message}</p>}
-
-        
-//         <button className="btn bg-info hover:bg-info w-full text-lg text-white" type="submit">
-//           Submit
-//         </button>
-//       </form>
-//     </div>
-//     </>
-//   )
-// }
-
-// export default Register
-
-
-
-
-
-
-
 import axios from "axios";
-import {useForm} from "react-hook-form";
-// import {useNavigate} from "react-router-dom"
-
+import { useForm } from "react-hook-form";
 
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  // const navigate = useNavigate()
+  const submissions = async (data) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
 
-  
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-      } = useForm()
-  
-    // const submissions = async (data) => {
-    
-    //     const formData = new FormData();
-    //     formData.append("name", data.name);
-    //     formData.append("email", data.email);
-    //     formData.append("password",  data.password);
-    //     formData.append("profileImage",  data.imageUrl[0]); 
-
-    //     try {
-    //       const response = await axios.post(
-    //         "https://boiler-plate-mu.vercel.app/api/user/register",
-    //         formData,
-    //         {
-    //           headers: {
-    //             "Content-Type": "multipart/form-data",
-    //           },
-    //         }
-    //       );
-          
-    //       console.log("User registered successfully:", response.data);
-    //       // const userId = response.data.data._id; 
-    //       // const image = response.data.data.imageUrl; 
-    //       // localStorage.setItem("userId",userId)
-    //       // localStorage.setItem("profileImage",imageUrl)
-    //       // console.log("User id:", response.data.data._id);
-    //       // console.log("User image", response.data.data.image);
-    //       // navigate("/login")
-    //     } catch (error) {
-    //       console.error("Error registering user:", error.response?.data || error.message);
-    //     }
-    //   };
-
-    const submissions = async (data) => {
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("email", data.email);
-      formData.append("password", data.password);
-    
-      try {
-        const response = await axios.post(
-          "https://final-hackthon-backend-teal.vercel.app/api/user/register",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        console.log("User registered successfully:", response.data);
-      } catch (error) {
-        console.error("Error registering user:", error);
-        if (error.response) {
-          console.error("API response error:", error.response.data);
-        } else if (error.request) {
-          console.error("Network error: No response received", error.request);
-        } else {
-          console.error("Error:", error.message);
+    try {
+      const response = await axios.post(
+        "https://final-hackthon-backend-teal.vercel.app/api/user/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
+      );
+      console.log("User registered successfully:", response.data);
+    } catch (error) {
+      console.error("Error registering user:", error);
+      if (error.response) {
+        console.error("API response error:", error.response.data);
+      } else if (error.request) {
+        console.error("Network error: No response received", error.request);
+      } else {
+        console.error("Error:", error.message);
       }
-    };
+    }
+  };
 
-
-
-    
   return (
     <>
-    <div className="flex justify-center mt-5 p-5">
-      <form
-        style={{ boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px" }}
-        className="p-8 w-full max-w-md bg-white rounded-lg"
-        onSubmit={handleSubmit(submissions)}
-      >
-        <h1 className="text-lg font-bold p-2 mb-5">Register</h1>
+     <div className="flex justify-center items-center min-h-screen p-6">
+    <form
+      className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg space-y-6 border border-gray-200 max-h-screen"
+      onSubmit={handleSubmit(submissions)}
+    >
+      <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-8 tracking-wide animate__animated animate__zoomIn">
+        Create an Account
+      </h1>
+
+      {/* Name Input */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-gray-700" htmlFor="name">
+          Username
+        </label>
         <input
-          className="input input-bordered w-full mb-3"
+          className="w-full px-6 py-3 rounded-lg border-2 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105"
           {...register("name", { required: "Name is required" })}
           type="text"
-          placeholder="Username"
+          id="name"
+          placeholder="Enter your username"
         />
-        {errors.name && <p className="text-red-500 mb-2 text-start mx-1">{errors.name.message}</p>}
+        {errors.name && (
+          <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+        )}
+      </div>
 
+      {/* Email Input */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-gray-700" htmlFor="email">
+          Email
+        </label>
         <input
-          className="input input-bordered w-full mb-3"
+          className="w-full px-6 py-3 rounded-lg border-2 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105"
           {...register("email", { required: "Email is required" })}
           type="email"
-          placeholder="Email"
+          id="email"
+          placeholder="Enter your email"
         />
-        {errors.email && <p className="text-red-500 mb-2 text-start mx-1">{errors.email.message}</p>}
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+        )}
+      </div>
 
+      {/* Password Input */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-gray-700" htmlFor="password">
+          Password
+        </label>
         <input
-          className="input input-bordered w-full mb-3"
+          className="w-full px-6 py-3 rounded-lg border-2 border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105"
           {...register("password", { required: "Password is required" })}
           type="password"
-          placeholder="Password"
+          id="password"
+          placeholder="Create your password"
         />
-        {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.password.message}</p>}
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+        )}
+      </div>
 
-        {/* <input
-          className="file-input file-input-bordered file-input-info w-full mb-3"
-          {...register("imageUrl", { required: "Image is required" })}
-          type="file"
-        />
-        {errors.imageUrl && <p className="text-red-500 text-start mb-2 mx-1">{errors.imageUrl.message}</p>} */}
+      {/* Submit Button */}
+      <button
+        className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-teal-400 text-lg text-white font-semibold shadow-lg hover:scale-105 transition duration-300 ease-in-out hover:shadow-xl focus:outline-none"
+        type="submit"
+      >
+        Register Now
+      </button>
 
-        <button className="btn bg-info hover:bg-info w-full text-lg text-white" type="submit">
-          Submit
-        </button>
-      </form>
-    </div>
+      {/* Terms and Conditions */}
+      <p className="text-center text-sm text-gray-600 mt-6">
+        By registering, you agree to our{" "}
+        <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold">
+          Terms & Conditions
+        </a> and{" "}
+        <a href="#" className="text-blue-500 hover:text-blue-700 font-semibold">
+          Privacy Policy
+        </a>.
+      </p>
+    </form>
+  </div>
+
     </>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
