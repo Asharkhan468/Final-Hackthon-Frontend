@@ -1,79 +1,117 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([]);
+  const loanOptions = {
+    "Wedding Loan": ["Valima", "Furniture", "Valima Food", "Jahez"],
+    "Home Construction Loan": ["Structure", "Finishing"],
+    "Business Startup Loan": ["Buy Stall", "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
+    "Education Loan": ["University Fees", "Child Fees Loan"],
+  };
+  const navigate = useNavigate()
 
-  const allBlogs = async () => {
+  const [loanType, setLoanType] = useState("");
+  const [subcategory, setSubcategory] = useState("");
+  const [amount, setAmount] = useState("");
+  const [duration, setDuration] = useState("");
+
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const token = localStorage.getItem("token"); // Token ko yahan se uthain
-      const response = await axios.get(
-        "https://final-hackthon-frontend.vercel.app/api/UserPost/post",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Authorization header add karein
-          },
-        }
-      );
-      console.log(response.data.posts); // 'posts' key ko console karein
-      setBlogs(response.data.posts); // Correct key ke saath state update karein
-      console.log(blogs, "db waly blogs ye hen");
+      const response = await axios.post("https://boiler-plate-mu.vercel.app/api/loan/loan", {
+        loanType,
+        subcategory,
+        amount,
+        duration,
+      });
+      console.log(response);
+      alert("Loan application submitted successfully!");
+      navigate("/Register")
+
     } catch (error) {
-      console.error(error);
-      setBlogs([]);
+      console.error("Error applying for loan:", error);
     }
   };
 
-  useEffect(() => {
-    allBlogs();
-  }, []);
-
   return (
-    <>
-      <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">All Blogs</h1>
-        {blogs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogs.map((blog) => (
-              <div
-                key={blog._id}
-                className="card w-full bg-base-100 shadow-xl"
-                style={{ minHeight: "250px" }}
-              >
-                <div className="card-body" style={{ padding: "16px" }}>
-                  {blog.author?.image && (
-                    <img
-                      src={blog.author.image}
-                      alt="User Profile"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  )}
-                  <h2 className="card-title">{blog.title}</h2>
-                  <div
-                    style={{
-                      maxHeight: "100px",
-                      overflowY: "auto",
-                      overflowX: "hidden",
-                      display: "block",
-                      paddingRight: "5px",
-                    }}
-                  >
-                    {blog.content}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p>No blogs available.</p>
-        )}
+    <div className="p-8 max-w-lg mx-auto mt-16 bg-white shadow-lg rounded-lg h-[40rem]">
+  <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Apply for a Loan</h1>
+  <form onSubmit={handleSubmit} className="space-y-6">
+    <div>
+      <label className="block mb-2 text-lg font-semibold text-gray-700">Loan Type</label>
+      <select
+        value={loanType}
+        onChange={(e) => {
+          setLoanType(e.target.value);
+          setSubcategory(""); 
+        }}
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required
+      >
+        <option value="" disabled>Select Loan Type</option>
+        {Object.keys(loanOptions).map((type) => (
+          <option key={type} value={type}>
+            {type}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    {loanType && (
+      <div>
+        <label className="block mb-2 text-lg font-semibold text-gray-700">Subcategory</label>
+        <select
+          value={subcategory}
+          onChange={(e) => setSubcategory(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        >
+          <option value="" disabled>Select Subcategory</option>
+          {loanOptions[loanType].map((sub) => (
+            <option key={sub} value={sub}>
+              {sub}
+            </option>
+          ))}
+        </select>
       </div>
-    </>
+    )}
+
+    <div>
+      <label className="block mb-2 text-lg font-semibold text-gray-700">Amount (PKR)</label>
+      <input
+        type="number"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Enter loan amount"
+        required
+      />
+    </div>
+
+    <div>
+      <label className="block mb-2 text-lg font-semibold text-gray-700">Duration (Years)</label>
+      <input
+        type="number"
+        value={duration}
+        onChange={(e) => setDuration(e.target.value)}
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Enter duration in years"
+        required
+      />
+    </div>
+
+    <button
+      type="submit"
+      className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+    >
+      Submit Loan Application
+    </button>
+  </form>
+</div>
+
   );
 };
 
