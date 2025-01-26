@@ -7,7 +7,6 @@ import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Logout from "./pages/Logout.jsx";
 import Home from "./pages/Home.jsx";
-import Test from "./pages/Test.jsx";
 import { store } from "../Redux/store/store.js";
 import { Provider } from "react-redux";
 
@@ -21,7 +20,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/Home",
+        path: "/",
         element: <Home />,
       },
       {
@@ -36,10 +35,7 @@ const router = createBrowserRouter([
         path: "/Logout",
         element: <Logout />,
       },
-      {
-        path: "/test",
-        element: <Test />,
-      },
+     
     ],
   },
 ]);
