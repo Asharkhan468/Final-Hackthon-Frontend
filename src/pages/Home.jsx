@@ -41,7 +41,7 @@ const Home = () => {
     e.preventDefault();
   
     try {
-      const response = await axios.post("https://final-hackthon-backend-teal.vercel.app/api/loan/loanApplication", {
+      const response = await axios.post("https://final-hackthon-backend-teal.vercel.app/api/loans/loanApplication", {
         loanType,
         subcategory,
         amount,
