@@ -63,7 +63,7 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content bg-white rounded-box z-[1] mt-3 w-56 p-2 shadow-xl transition-all duration-300 ease-in-out scale-95 hover:scale-100"
         >
           <li>
-            <Link to="/Home" className="hover:bg-gradient-to-r hover:from-blue-500 hover:to-teal-400 hover:text-white p-2 rounded-lg transition duration-200">
+            <Link to="/" className="hover:bg-gradient-to-r hover:from-blue-500 hover:to-teal-400 hover:text-white p-2 rounded-lg transition duration-200">
               Home
             </Link>
           </li>
