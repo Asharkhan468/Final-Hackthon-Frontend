@@ -17,11 +17,31 @@ const Home = () => {
   const [duration, setDuration] = useState("");
 
   
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await axios.post("https://boiler-plate-mu.vercel.app/api/loan/loan", {
+  //       loanType,
+  //       subcategory,
+  //       amount,
+  //       duration,
+  //     });
+  //     console.log(response);
+  //     alert("Loan application submitted successfully!");
+  //     navigate("/Register")
+
+  //   } catch (error) {
+  //     console.error("Error applying for loan:", error);
+  //   }
+  // };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const response = await axios.post("https://boiler-plate-mu.vercel.app/api/loan/loan", {
+      const response = await axios.post("http://localhost:5000/api/loan/loan", {
         loanType,
         subcategory,
         amount,
@@ -29,12 +49,13 @@ const Home = () => {
       });
       console.log(response);
       alert("Loan application submitted successfully!");
-      navigate("/Register")
-
+      navigate("/Register");
     } catch (error) {
       console.error("Error applying for loan:", error);
+      alert("Failed to submit the loan application. Please try again.");
     }
   };
+  
 
   return (
     <div className="p-8 max-w-lg mx-auto mt-16 bg-white shadow-lg rounded-lg h-[40rem]">
