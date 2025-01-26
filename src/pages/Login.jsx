@@ -7,6 +7,10 @@ import { setUser } from "../../Redux/reducer/userSlice";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalType, setModalType] = useState(""); // "success" or "error"
+  const [showModal, setShowModal] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -30,29 +34,28 @@ const Login = () => {
       if (response.data && response.data.accessToken) {
         const { accessToken, user } = response.data;
 
-        // Store accessToken and userId using Redux
         dispatch(setUser({ userId: user.id, accessToken }));
-
-        // Store in localStorage
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("userId", user.id);
 
+        setModalMessage("Successfully logged in!");
+        setModalType("success");
+        setShowModal(true);
+
         setTimeout(() => {
-          alert("Successfully logged in");
+          setShowModal(false);
           navigate("/Dashboard");
-        }, 1000);
+        }, 2000);
       } else {
-        console.error("Access token is not returned in the response");
-        alert("Failed to log in: Access token not returned.");
+        setModalMessage("Access token not returned. Please try again.");
+        setModalType("error");
+        setShowModal(true);
       }
     } catch (error) {
-      console.error("Error during login:", error);
-      if (error.response) {
-        const errorMessage = error.response.data.message || "An error occurred";
-        alert(errorMessage);
-      } else {
-        alert("Network error. Please check your internet connection.");
-      }
+      const errorMessage = error.response?.data?.message || "Network error. Please try again.";
+      setModalMessage(errorMessage);
+      setModalType("error");
+      setShowModal(true);
     } finally {
       setLoading(false);
     }
@@ -60,11 +63,32 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 p-6">
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div
+            className={`bg-white p-6 rounded-lg shadow-lg transition-transform transform ${
+              modalType === "success" ? "border-green-500" : "border-red-500"
+            } border-t-4`}
+          >
+            <h2
+              className={`text-2xl font-bold mb-4 ${
+                modalType === "success" ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {modalType === "success" ? "Success" : "Error"}
+            </h2>
+            <p className="text-gray-700 mb-4">{modalMessage}</p>
+            <button
+              onClick={() => setShowModal(false)}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       <form
-        style={{
-          boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
-          transition: "all 0.3s ease-in-out",
-        }}
         className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 transform hover:scale-105 hover:shadow-2xl transition duration-500 border border-3"
         onSubmit={handleSubmit(login)}
       >
@@ -113,14 +137,14 @@ const Login = () => {
 
         {loading ? (
           <button
-            className="w-full py-3 rounded-lg bg-blue-500 hover:bg-blue-600 text-lg text-white font-semibold shadow-md transition-all duration-300"
+            className="w-full py-3 rounded-lg bg-blue-500 text-lg text-white font-semibold shadow-md transition-all duration-300"
             type="submit"
           >
-            authenticating please wait...
+            Authenticating...
           </button>
         ) : (
           <button
-            className="btn bg-gradient-to-r from-blue-500 to-teal-400 w-full text-lg text-white py-3 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl focus:outline-none"
+            className="btn bg-gradient-to-r from-blue-500 to-teal-400 w-full text-lg text-white py-3 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
             type="submit"
           >
             LOGIN
